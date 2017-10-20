@@ -32,27 +32,30 @@
 								<span class="icon-bar"></span>
 								<span class="icon-bar"></span>
 						</button>
-						<a class="navbar-brand" href="http://www.google.com">할까말까?!</a>
+						<a class="navbar-brand" href="/">할까말까?!</a>
 					</div>
 
 					<div class="collapse navbar-collapse" id="navigation-example">
 						<ul class="nav navbar-nav navbar-right">
-							<!-- <% if (user==undefined) { %> -->
+
 							<li>
+									<%if(user==undefined){ %>
 							<a href="/auth/facebook" target="_blank">
 									<i class="fa fa-facebook-square"></i> &nbsp;페이스북으로 로그인
 							</a>
+							<%}%>
 							</li>
-							<!-- <% } %> -->
-							<!-- <% if(user) { %> -->
-					<!-- <% if(user.level == 9 ){%> -->
+
+							<% if(user) { %>
+					<%if(user.level == 9 ){%>
 					<li><a href="/adminpage">admin</a></li>
-					<!-- <% } %> -->
-				<li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="/주소">user.profile.name</a></li>
-					<li><a href="/refillmoney"> 돈 &nbsp;포인트</a></li>
+					<%}%>
+					<li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
+					<li><a href="/refillmoney"> <%= user.money %>&nbsp;포인트</a></li>
 					<li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
 					<li><a href="/logout">Logout</a></li>
-	<!-- <% } %> -->
+			<% } %>
+
 						</ul>
 					</div>
 			</div>
@@ -84,22 +87,22 @@
 						<div class="container">
 
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ로그인이 안되어있을때 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
- 							<!-- <% if(user==undefined) { %> -->
+										<%if(user==undefined){ %>
 								<div class="box" style="padding-bottom:50px; margin-bottom:30px;">
 									<h3>지금 로그인하고 아이디어를 등록해보세요!</h3>
 									<a href="/auth/facebook" target="_blank" class="btn deung btn-raised">
 											<i class="fa fa-facebook-square"></i> &nbsp;페이스북으로 로그인
 									</a>
 								</div>
-								<!-- % } %> -->
+									<%}%>
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="box">
                         <div class="info">
-                            <h4 class="text-left"><a href="/idea/">아이디어이름라라라라라라</a></h4>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!</p>
+                            <h4 class="text-left"><a href="/idea/<%= data[0].pan[0].id %>"><%= data[0].pan[0].name %></a></h4>
+                            <p> <%= data[0].pan[0].description%> </p>
         										<div class="row">
-        											<p class="profil"><a href="#">By Uniqusdfsdfess</a></p>
+        											<p class="profil"><a href="/oneuser/<%= data[0].pan[0].user%>">By <%= data[0].pan[0].username%> </a></p>
         											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;산다!</a>
         										</div>
                         </div>

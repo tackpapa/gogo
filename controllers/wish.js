@@ -8,19 +8,28 @@ var List = require("../models/List");
 
 
 exports.inputwish = (req, res) =>{
-  var list = new List({
-    user: req.body.user,
-    username:req.body.username,
-    name: req.body.name,
-    description: req.body.description
-  })
-  list.save(function(err){
-    if(err){ console.log(err)} else {
-      res.redirect('/')
+  User.findOne({
+    _id: req.body.user
+  }, function(err, user){
+    var list = new List({
+      user: req.body.user,
+      username:req.body.username,
+      name: req.body.name,
+      description: req.body.description,
+      realuser: req.body.user
+    })
+    list.save(function(err){
+      user.pan.push(list);
+      user.save(function(err){
+        if(err){ console.log(err)} else {
+          res.redirect('/')
+        }
+      })
+    })
     }
+  )}
 
-  })
-  }
+
 
   exports.deletewish = (req, res) =>{
     console.log(req.body.id);
@@ -63,6 +72,8 @@ exports.oneidea = (req, res) => {
 exports.oneuser = (req, res) => {
         User.find({
             _id: req.params.id
+        }).populate('pan').sort({
+          date: 'desc'
         }).exec(function(err, data) {
             if (err) {
                 console.log("oneuser error ", err)
@@ -70,11 +81,12 @@ exports.oneuser = (req, res) => {
                   'index', {title: 'Home'}
                 )
             } else {
-              console.log("coming heeeeere");
+
                 res.render('oneuser', {
                     title: 'oneuser',
                     data: data
                 })
+                console.log("coming heeeeere");
             }
       })
       }

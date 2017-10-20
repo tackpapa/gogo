@@ -116,6 +116,7 @@
 								<% } %>
 
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
 								<% if(data) { %>
 								<% for (var i = 0; i < data.length; i++) { %>
 									<% if (data[i].live==true){ %>
@@ -128,14 +129,16 @@
 											<p class="profil"><a href="/oneuser/<%= data[i].user %>">By&nbsp;<%= data[i].username %></a></p>
 											<a href="" class="btn btn-warning">평가하러가기</a>
 											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;산다!</a>
+											<%if(user){%>
 											<% if(user.id==data[i].user){ %>
 					            <form action="/deletewish" method="post">
 					                <input type="hidden" name="_csrf" value="<%=_csrf%>">
 					                <input type="hidden" name="id" value="<%= data[i].id %>">
 					                    <input class="btn btn-danger" type="submit" value="삭제">
 					            </form>
-					            <% } else {%>
 					            <% } %>
+					            <% } %>
+
 										</div>
                 </div>
             </div>

@@ -4,6 +4,7 @@ var Schema = mongoose.Schema;
 const listSchema = new mongoose.Schema({
 
   user:String,
+  realuser:{type:Schema.Types.ObjectId, ref:'User'},
   username:String,
   date:{type:Date, default:Date.now },
   name:String,

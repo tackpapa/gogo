@@ -9,8 +9,9 @@ var List = require("../models/List");
 exports.index = (req, res) => {
   List.find({
       target: req.params.id
+  }).sort({
+    date: 'desc'
   }).exec(function(err, data) {
-
       if (err) {
           console.log("listfind error ", err)
           res.redner(
