@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<link rel="apple-touch-icon" sizes="76x76" href="/assets/img/apple-icon.png">
+	<link rel="icon" type="image/png" href="/assets/img/favicon.png">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+	<title>할까말까?!</title>
+
+	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+
+	<!--     Fonts and icons     -->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+	<!-- CSS Files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/material-kit.css" rel="stylesheet"/>
+
+</head>
+
+<body class="landing-page">
+    <nav class="navbar navbar-transparent navbar-absolute">
+    	<div class="container">
+        	<!-- Brand and toggle get grouped for better mobile display -->
+        	<div class="navbar-header">
+        		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example">
+            		<span class="sr-only">Toggle navigation</span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+		            <span class="icon-bar"></span>
+        		</button>
+        		<a class="navbar-brand" href="http://www.google.com">할까말까?!</a>
+        	</div>
+
+        	<div class="collapse navbar-collapse" id="navigation-example">
+        		<ul class="nav navbar-nav navbar-right">
+							<% if (user==undefined) { %>
+	    				<li>
+							<a href="/auth/facebook" target="_blank">
+									<i class="fa fa-facebook-square"></i> &nbsp;페이스북으로 로그인
+							</a>
+	    				</li>
+							<% } %>
+							<% if(user) { %>
+          <%if(user.level == 9 ){%>
+          <li><a href="/adminpage">admin</a></li>
+          <%}%>
+          <li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
+          <li><a href="/refillmoney"> <%= user.money%>&nbsp;포인트</a></li>
+          <li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+          <li><a href="/logout">Logout</a></li>
+<% } %>
+						</ul>
+        	</div>
+    	</div>
+    </nav>
+
+    <div class="wrapper">
+        <div class="header header-filter" style="background-image: url('https://www.filepicker.io/api/file/dHZLV8obRiJM5vrhlhWg');">
+
+            <div class="container">
+                <div class="row">
+					<div class="col-md-6">
+						<h1 class="title">아이디어를 검증하세요</h1>
+	                    <h4>자본력으로 밀어붙이는 회사말고, 객관적으로 아이디어만 평가해봅시다. 당신이 누구든, 아이디어만으로 당신을 보겠습니다. 당신의 제품을 살지 안살지 솔직한 생각을 들어보세요.    </h4>
+	                    <br />
+	                    <a href="#" class="btn btn-danger btn-raised btn-lg">
+							 			아이디어 등록하기</a>
+					</div>
+                </div>
+            </div>
+        </div>
+
+	<div class="main main-raised">
+			<div class="container">
+		    	<div class="section text-center section-landing">
+						<div class="container">
+							  <% if(data) { %>
+									<%if(user){%>
+								<div class="box" style="padding-bottom:50px; margin-bottom:30px;">
+									<h3>아이디어를 등록해보세요!</h2>
+										<p style="text-align:center;">무분별한 등록을 방지하기 위하여 30분의 필터를 거쳐 등록됩니다.</p>
+									<form action="/input_wish" method="post">
+										<input type="hidden" name="_csrf" value="<%=_csrf%>">
+										<input type="hidden" name="user" value="<%= user.id %>">
+          <input type="hidden" name="username" value="<%= user.profile.name %>">
+											<div class="input-group">
+													<span class="input-group-addon"></span>
+													<input type="text" name="name" class="form-control" placeholder="서비스이름 또는 아이디어 이름을 적어주세요...">
+													<span class="input-group-addon"></span>
+											</div>
+											<div class="input-group">
+												<span class="input-group-addon"></span>
+												<input type="text" name="description" class="form-control" placeholder="아이디어를 상세히 설명해주세요...">
+												<span class="input-group-addon"></span>
+											</div>
+											<div class="checkbox" style="text-align:left !important; margin-left:30px;">
+												<label><input type="checkbox" name="anoni" unchecked>익명으로 등록하기</label>
+											</div>
+											<input type="submit" class="btn deung btn-raised" value="등록">
+									</form>
+								</div>
+								<%} else { %>
+								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ로그인이 안되어있을때 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+								<div class="box" style="padding-bottom:50px; margin-bottom:30px;">
+									<h3>지금 로그인하고 아이디어를 등록해보세요!</h3>
+									<a href="/auth/facebook" class="btn deung btn-raised">
+											<i class="fa fa-facebook-square"></i> &nbsp;페이스북으로 로그인
+									</a>
+								</div>
+
+								<% } %>
+
+								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+								<% if(data) { %>
+								<% for (var i = 0; i < data.length; i++) { %>
+									<% if (data[i].live==true){ %>
+				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="box">
+                <div class="info">
+                    <h4 class="text-left"><a href="#"><%= data[i].name %></a></h4>
+                    <p><%= data[i].description %></p>
+										<div class="row">
+											<p class="profil"><a href="#"><%= data[i].username %></a></p>
+											<a href="" class="btn btn-warning">평가하러가기</a>
+											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;산다!</a>
+										</div>
+                </div>
+            </div>
+        </div>
+
+            <% } %>
+        <% } %>
+				<% } %>
+				<% } %>
+
+
+
+			</div>
+		</div>
+	</div>
+</div>
+
+	    <footer class="footer">
+	        <div class="container">
+	            <nav class="pull-left">
+	            </nav>
+	            <div class="copyright pull-right">
+	                &copy; 2017, Halkka Malkka Reserved <i class="fa fa-heart heart"></i> by&nbsp;<a href="https://www.facebook.com/kytack">Kiyoung Tack</a>
+	            </div>
+	        </div>
+	    </footer>
+	</div>
+</body>
+
+	<!--   Core JS Files   -->
+	<script src="/assets/js/jquery.min.js" type="text/javascript"></script>
+	<script src="/assets/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/assets/js/material.min.js"></script>
+
+	<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+	<script src="/assets/js/nouislider.min.js" type="text/javascript"></script>
+
+	<!--  Plugin for the Datepicker, full documentation here: http://www.eyecon.ro/bootstrap-datepicker/ -->
+	<script src="/assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
+
+	<!-- Control Center for Material Kit: activating the ripples, parallax effects, scripts from the example pages etc -->
+	<script src="/js/material-kit.js" type="text/javascript"></script>
+
+</html>
