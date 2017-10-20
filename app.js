@@ -62,8 +62,8 @@ app.set('view engine', 'ejs');
 
 app.use(compression());
 app.use(sass({
-  src: path.join(__dirname, 'public'),
-  dest: path.join(__dirname, 'public')
+  src: path.join(__dirname, './public'),
+  dest: path.join(__dirname, './public')
 }));
 app.use(logger('dev'));
 app.use(bodyParser.json());
