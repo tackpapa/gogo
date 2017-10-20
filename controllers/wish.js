@@ -41,7 +41,7 @@ exports.inputwish = (req, res) =>{
       });
 
       }
-      exports.oneidea = (req, res) => {
+exports.oneidea = (req, res) => {
         List.find({
             _id: req.params.id
         }).exec(function(err, data) {
@@ -52,8 +52,27 @@ exports.inputwish = (req, res) =>{
                   'index', {title: 'Home'}
                 )
             } else {
+
                 res.render('oneidea', {
                     title: 'oneidea',
+                    data: data
+                })
+            }
+      })
+      }
+exports.oneuser = (req, res) => {
+        User.find({
+            _id: req.params.id
+        }).exec(function(err, data) {
+            if (err) {
+                console.log("oneuser error ", err)
+                res.redner(
+                  'index', {title: 'Home'}
+                )
+            } else {
+              console.log("coming heeeeere");
+                res.render('oneuser', {
+                    title: 'oneuser',
                     data: data
                 })
             }

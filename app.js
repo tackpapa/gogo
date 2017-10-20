@@ -159,6 +159,7 @@ app.post('/input_wish', wishController.inputwish);
 app.post('/deletewish', wishController.deletewish);
 app.post('/makelive', wishController.makelive);
 app.get('/idea/:id', wishController.oneidea);
+app.get('/oneuser/:id', wishController.oneuser);
 
 /**
  * Error Handler.
