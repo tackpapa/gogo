@@ -67,8 +67,9 @@
             <div class="container" style="padding:100px !important;">
                 <div class="row">
 					<div class="col-md-8 col-md-offset-2">
-						<h1 class ="title" style="text-align:center;">유저이름</h1>
-	                    <h4 style="text-align:center;">총999개의 아이디어를 등록하셨습니다.   </h4>
+						<%if(data){%>
+						<h1 class ="title" style="text-align:center;"><%= data[0].profile.name %></h1>
+	                    <h4 style="text-align:center;">총<%= data[0].pan.length %>개의 아이디어를 등록하셨습니다.   </h4>
 	                    <br />
                       <div class="row" style="text-align:center;">
                       <a href="#" class="btn btn-danger btn-raised btn-lg">
@@ -77,6 +78,7 @@
                       </div>
 
 					</div>
+					<%}%>
                 </div>
             </div>
         </div>
@@ -96,18 +98,22 @@
 								</div>
 									<%}%>
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
+
+									<% for (var i = 0; i < data[0].pan.length; i++) { %>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="box">
                         <div class="info">
-                            <h4 class="text-left"><a href="/idea/<%= data[0].pan[0].id %>"><%= data[0].pan[0].name %></a></h4>
-                            <p> <%= data[0].pan[0].description%> </p>
+                            <h4 class="text-left"><a href="/idea/<%= data[0].pan[i].id %>"><%= data[0].pan[i].name %></a></h4>
+                            <p> <%= data[0].pan[i].description%> </p>
         										<div class="row">
-        											<p class="profil"><a href="/oneuser/<%= data[0].pan[0].user%>">By <%= data[0].pan[0].username%> </a></p>
+        											<p class="profil"><a href="/oneuser/<%= data[0].pan[i].user%>">By <%= data[0].pan[i].username%> </a></p>
         											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;산다!</a>
         										</div>
                         </div>
                     </div>
                 </div>
+								<% } %>
+								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ아이디어카드 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 
 			</div>
 		</div>

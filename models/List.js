@@ -9,8 +9,8 @@ const listSchema = new mongoose.Schema({
   date:{type:Date, default:Date.now },
   name:String,
   description:String,
-  upvote:Number,
-  downvote:Number,
+  upvote:{ type: Number, default: 1 },
+  downvote:{ type: Number, default: 1 },
   wish:[{type:String}],
   live:{type:Boolean, default:false}
 });

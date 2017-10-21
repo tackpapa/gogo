@@ -39,17 +39,27 @@ exports.inputwish = (req, res) =>{
     });
 
     }
-    exports.makelive = (req, res) =>{
-      console.log(req.body.id);
-      List.update({ _id:req.body.id },
-        {
-          live:true
-        }, function(err){
-        if (err) { return next(err); }
-        res.redirect('/adminpage');
-      });
+exports.likewish = (req, res) =>{
+  List.update({ _id:req.body.id },
+    {
+      upvote: parseInt(req.body.current) + 1
+    }, function(err){
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
 
-      }
+  }
+exports.makelive = (req, res) =>{
+  console.log(req.body.id);
+  List.update({ _id:req.body.id },
+    {
+      live:true
+    }, function(err){
+    if (err) { return next(err); }
+    res.redirect('/adminpage');
+  });
+
+  }
 exports.oneidea = (req, res) => {
         List.find({
             _id: req.params.id
