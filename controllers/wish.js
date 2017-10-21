@@ -99,7 +99,6 @@ exports.oneidea = (req, res) => {
           date: 'desc'
         })
         .exec(function(err, data) {
-
             if (err) {
                 console.log("listfind error ", err)
                 res.redner(
