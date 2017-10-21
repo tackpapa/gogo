@@ -107,7 +107,28 @@
                             <p> <%= data[0].pan[i].description%> </p>
         										<div class="row">
         											<p class="profil"><a href="/oneuser/<%= data[0].pan[i].user%>">By <%= data[0].pan[i].username%> </a></p>
-        											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;산다!</a>
+
+															<form style="display:inline-block;" action="/likewish" method="post">
+																	<input type="hidden" name="_csrf" value="<%=_csrf%>">
+																	<input type="hidden" name="id" value="<%= data[0].pan[i].id %>">
+																	<input type="hidden" name="current" value="<%= data[0].pan[i].upvote %>">
+														<button  type="submit" class="btn sanda blue">
+														<i class="fa fa-arrow-up" aria-hidden="true"></i> <%=data[0].pan[i].upvote%> &nbsp;&nbsp;산다!
+															</button>
+
+															</form>
+															<%if(user){%>
+															<% if(user.id==data[0].pan[i].realuser){ %>
+															<form style="display:inline-block;" action="/deletewish" method="post">
+																	<input type="hidden" name="_csrf" value="<%=_csrf%>">
+																	<input type="hidden" name="id" value="<%=data[0].pan[i].id%>">
+																			<input  class="btn btn-danger" type="submit" value="삭제">
+															</form>
+															<% } %>
+															<% } %>
+
+
+
         										</div>
                         </div>
                     </div>

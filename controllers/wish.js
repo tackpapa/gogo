@@ -4,6 +4,7 @@ var User = require("../models/User");
 var Response = require("../models/Response");
 var Donation = require("../models/Donation");
 var List = require("../models/List");
+var Comment = require("../models/Comment");
 
 
 
@@ -28,7 +29,28 @@ exports.inputwish = (req, res) =>{
     })
     }
   )}
-
+  exports.inputcomment = (req, res) =>{
+    console.log(req.body)
+    List.findOne({
+      _id: req.body.list
+    }, function(err, list){
+      var comment = new Comment({
+        user: req.body.user,
+        username:req.body.username,
+        description: req.body.description,
+        realuser: req.body.user
+      })
+      console.log("샹여기까지")
+      comment.save(function(err){
+        list.comment.push(comment);
+        list.save(function(err){
+          if(err){ console.log(err)} else {
+            res.redirect('/idea/'+ req.body.list)
+          }
+        })
+      })
+      }
+    )}
 
 
   exports.deletewish = (req, res) =>{
@@ -49,6 +71,16 @@ exports.likewish = (req, res) =>{
   });
 
   }
+  exports.commentlike = (req, res) =>{
+    Comment.update({ _id:req.body.id },
+      {
+        upvote: parseInt(req.body.current) + 1
+      }, function(err){
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+
+    }
 exports.makelive = (req, res) =>{
   console.log(req.body.id);
   List.update({ _id:req.body.id },
@@ -63,7 +95,10 @@ exports.makelive = (req, res) =>{
 exports.oneidea = (req, res) => {
         List.find({
             _id: req.params.id
-        }).exec(function(err, data) {
+        }).populate('comment').sort({
+          date: 'desc'
+        })
+        .exec(function(err, data) {
 
             if (err) {
                 console.log("listfind error ", err)

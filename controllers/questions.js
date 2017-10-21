@@ -3,6 +3,7 @@ var Question = require("../models/Question");
 var User = require("../models/User");
 var Response = require("../models/Response");
 var Donation = require("../models/Donation");
+var Comment = require("../models/Comment");
 
 // exports.filesave = (req, res) =>{
 //

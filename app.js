@@ -156,6 +156,8 @@ app.get('/auth/instagram/callback', passport.authenticate('instagram', { failure
 });
 
 app.post('/input_wish', wishController.inputwish);
+app.post('/input_comment', wishController.inputcomment);
+// app.post('/del_comment', wishController.delcomment);
 app.post('/deletewish', wishController.deletewish);
 app.post('/makelive', wishController.makelive);
 app.get('/idea/:id', wishController.oneidea);

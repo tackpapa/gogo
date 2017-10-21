@@ -69,7 +69,7 @@
 	                    <h4 style="text-align:center;"><%= data[0].description %></h4>
 	                    <br />
                       <div class="row" style="text-align:center;">
-                        <a href="#" class="btn btn-warning btn-raised btn-lg">
+                        <a href="/oneuser/<%=data[0].realuser%>" class="btn btn-warning btn-raised btn-lg">
   							 			<%= data[0].username %>님&nbsp; 더보기</a>
                       <a href="#" class="btn btn-danger btn-raised btn-lg">
 							 			공유하기</a>
@@ -87,20 +87,25 @@
 		    	<div class="section text-center section-landing">
 						<div class="container">
 							<% if(user) { %>
+								<% if(data) { %>
 								<div class="box" style="padding-bottom:50px; margin-bottom:30px;">
 									<h3>이 아이디어를 평가해주세요!</h2>
-									<form>
+									<form action="/input_comment" method="post">
 											<div class="input-group">
 													<span class="input-group-addon"></span>
-													<input type="text" class="form-control" placeholder="될수 있으면 상세히 적어주세요! 그럼 더 고마워할거에요">
+													<input type="text" class="form-control" name="description" placeholder="될수 있으면 상세히 적어주세요! 그럼 더 고마워할거에요">
 											</div>
-
+											<input type="hidden" name="_csrf" value="<%=_csrf%>">
+											<input type="hidden" name="list" value="<%= data[0].id %>">
+											<input type="hidden" name="user" value="<%= user.id %>">
+											<input type="hidden" name="username" value="<%= user.profile.name %>">
 											<div class="checkbox" style="text-align:left !important; margin-left:30px;">
-												<label><input type="checkbox" name="optionsCheckboxes" unchecked>익명으로 등록하기</label>
+												<label><input type="checkbox" name="anoni" unchecked>익명으로 등록하기</label>
 											</div>
-											<a href="" class="btn deung btn-raised">등록</a>
+											<input type="submit" class="btn deung btn-raised" value="등록">
 									</form>
 								</div>
+								<% } %>
 								<% } %>
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ로그인이 안되어있을때 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 								<% if(user==undefined) { %>
@@ -115,21 +120,24 @@
 
 
 
-
+								<% if(data) { %>
+									<% for (var i = 0; i < data[0].comment.length; i++) { %>
 								<!-- ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ여기까지 ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ -->
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
             <div class="box">
                 <div class="info">
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corrupti atque, tenetur quam aspernatur corporis at explicabo nulla dolore necessitatibus doloremque exercitationem sequi dolorem architecto perferendis quas aperiam debitis dolor soluta!</p>
+                    <p><%= data[0].comment[i].description%></p>
 										<div class="row">
-											<p class="profil"><a href="#">By Uniqusdfsdfess</a></p>
+											<p class="profil"><a href="/oneuser/<%= data[0].comment[i].user%>"><%= data[0].comment[i].username%></a></p>
 											<a href="" class="btn btn-warning">반대함</a>
 											<a href="" class="btn sanda blue">157&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;옳소!</a>
 										</div>
                 </div>
             </div>
         </div>
+				<% } %>
+				<% } %>
 
 			</div>
 		</div>

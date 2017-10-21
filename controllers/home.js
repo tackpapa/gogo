@@ -4,6 +4,7 @@ var User = require("../models/User");
 var Response = require("../models/Response");
 var Donation = require("../models/Donation");
 var List = require("../models/List");
+var Comment = require("../models/Comment");
 
 
 exports.index = (req, res) => {
