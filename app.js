@@ -18,6 +18,8 @@ const expressValidator = require('express-validator');
 const sass = require('node-sass-middleware');
 const multer = require('multer');
 const upload = multer({ dest: path.join(__dirname, 'uploads') });
+const nocache = require('nocache');
+
 
 /**
  * Load environment variables from .env file, where API keys and passwords are configured.
@@ -103,6 +105,7 @@ app.use((req, res, next) => {
   next();
 });
 app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }));
+
 
 /**
  * Primary app routes.
