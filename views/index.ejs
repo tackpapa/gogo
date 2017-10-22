@@ -40,7 +40,7 @@
         		<ul class="nav navbar-nav navbar-right">
 							<% if (user==undefined) { %>
 	    				<li>
-							<a href="/auth/facebook" target="_blank">
+							<a href="/auth/facebook">
 									<i class="fa fa-facebook-square"></i> &nbsp;페이스북으로 로그인
 							</a>
 	    				</li>
@@ -50,8 +50,8 @@
           <li><a href="/adminpage">admin</a></li>
           <%}%>
           <li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
-          <li><a href="/refillmoney"> <%= user.money%>&nbsp;포인트</a></li>
-          <li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+          <!-- <li><a href="/refillmoney"> <%= user.money%>&nbsp;포인트</a></li>
+          <li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li> -->
           <li><a href="/logout">Logout</a></li>
 <% } %>
 						</ul>
@@ -98,9 +98,9 @@
 												<input type="text" name="description" class="form-control" placeholder="아이디어를 상세히 설명해주세요...">
 												<span class="input-group-addon"></span>
 											</div>
-											<div class="checkbox" style="text-align:left !important; margin-left:30px;">
+											<!-- <div class="checkbox" style="text-align:left !important; margin-left:30px;">
 												<label><input type="checkbox" name="anoni" unchecked>익명으로 등록하기</label>
-											</div>
+											</div> -->
 											<input type="submit" class="btn deung btn-raised" value="등록">
 									</form>
 								</div>

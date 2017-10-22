@@ -51,8 +51,8 @@
 					<li><a href="/adminpage">admin</a></li>
 					<%}%>
 					<li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
-					<li><a href="/refillmoney"> <%= user.money %>&nbsp;포인트</a></li>
-					<li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li>
+					<!-- <li><a href="/refillmoney"> <%= user.money %>&nbsp;포인트</a></li>
+					<li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li> -->
 					<li><a href="/logout">Logout</a></li>
 			<% } %>
 
@@ -74,7 +74,7 @@
                       <div class="row" style="text-align:center;">
                       <a href="#" class="btn btn-danger btn-raised btn-lg">
 							 			공유하기</a>
-                    <a href="" class="btn btn-raised btn-lg sanda blue">이 유저 좋아요&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;9999</a>
+                  <a class="btn gongu btn-raised btn-lg"href="https://www.facebook.com/sharer/sharer.php?u=http%3A//13.125.43.174/oneuser/<%=data[0].id%>"><i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;&nbsp;페북에 공유</a>
                       </div>
 
 					</div>

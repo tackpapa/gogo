@@ -29,6 +29,8 @@ exports.index = (req, res) => {
 exports.adminpage = (req, res) => {
   List.find({
       target: req.params.id
+  }).sort({
+    date: 'desc'
   }).exec(function(err, data) {
 
       if (err) {

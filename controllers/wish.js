@@ -81,6 +81,16 @@ exports.likewish = (req, res) =>{
     });
 
     }
+    exports.commentdislike = (req, res) =>{
+      Comment.update({ _id:req.body.id },
+        {
+          downvote: parseInt(req.body.current) + 1
+        }, function(err){
+        if (err) { return next(err); }
+        res.redirect('/');
+      });
+
+      }
 exports.makelive = (req, res) =>{
   console.log(req.body.id);
   List.update({ _id:req.body.id },
@@ -97,15 +107,13 @@ exports.oneidea = (req, res) => {
             _id: req.params.id
         }).populate('comment').sort({
           date: 'desc'
-        })
-        .exec(function(err, data) {
+        }).exec(function(err, data) {
             if (err) {
                 console.log("listfind error ", err)
                 res.redner(
                   'index', {title: 'Home'}
                 )
             } else {
-
                 res.render('oneidea', {
                     title: 'oneidea',
                     data: data
@@ -130,7 +138,7 @@ exports.oneuser = (req, res) => {
                     title: 'oneuser',
                     data: data
                 })
-                console.log("coming heeeeere");
+
             }
       })
       }
