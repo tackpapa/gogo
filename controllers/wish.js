@@ -71,13 +71,23 @@ exports.likewish = (req, res) =>{
   });
 
   }
+  exports.likewishidea = (req, res) =>{
+    List.update({ _id:req.body.id },
+      {
+        upvote: parseInt(req.body.current) + 1
+      }, function(err){
+      if (err) { return next(err); }
+      res.redirect('/idea/' + req.body.id);
+    });
+
+    }
   exports.commentlike = (req, res) =>{
     Comment.update({ _id:req.body.id },
       {
         upvote: parseInt(req.body.current) + 1
       }, function(err){
       if (err) { return next(err); }
-      res.redirect('/');
+      res.redirect('/idea/'+req.body.idea_id);
     });
 
     }
@@ -87,7 +97,7 @@ exports.likewish = (req, res) =>{
           downvote: parseInt(req.body.current) + 1
         }, function(err){
         if (err) { return next(err); }
-        res.redirect('/');
+        res.redirect('/idea/'+ req.body.idea_id );
       });
 
       }

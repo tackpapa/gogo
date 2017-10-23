@@ -48,7 +48,7 @@
 				<%if(user.level == 9 ){%>
 				<li><a href="/adminpage">admin</a></li>
 				<%}%>
-				<li><a href="/account"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
+				<li><a href="#"><img style="width:18px;height:18px;border-radius:50px;margin-right:5px;" src="<%= user.profile.picture %>"><%= user.profile.name %></a></li>
 				<!-- <li><a href="/refillmoney"> <%= user.money%>&nbsp;포인트</a></li>
 				<li><a href="/account"><i class="fa fa-cog" aria-hidden="true"></i></a></li> -->
 				<li><a href="/logout">Logout</a></li>
@@ -72,7 +72,16 @@
                         <a href="/oneuser/<%=data[0].realuser%>" class="btn btn-warning btn-raised btn-lg">
   							 			<%= data[0].username %>님&nbsp; 더보기</a>
 										  <a class="btn gongu btn-raised btn-lg"href="https://www.facebook.com/sharer/sharer.php?u=http%3A//13.125.43.174/idea/<%=data[0].id%>"><i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;&nbsp;페북에 공유</a>
-                    <a href="" class="btn btn-raised btn-lg sanda blue">산다!&nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;&nbsp;9999</a>
+										<form style="display:inline-block;" action="/likewishidea" method="post">
+												<input type="hidden" name="_csrf" value="<%=_csrf%>">
+												<input type="hidden" name="id" value="<%= data[0].id %>">
+
+												<input type="hidden" name="current" value="<%= data[0].upvote %>">
+									<button  type="submit" class="btn btn-raised btn-lg sanda blue">
+									<i class="fa fa-arrow-up" aria-hidden="true"></i> <%=data[0].upvote%> &nbsp;&nbsp;산다!
+										</button>
+
+										</form>
                       </div>
 											<%}%>
 
@@ -132,6 +141,7 @@
 											<form style="display:inline-block;" action="/commentdislike" method="post">
 													<input type="hidden" name="_csrf" value="<%=_csrf%>">
 													<input type="hidden" name="id" value="<%= data[0].comment[i].id %>">
+													<input type="hidden" name="idea_id" value="<%= data[0].id %>">
 													<input type="hidden" name="current" value="<%= data[0].comment[i].downvote %>">
 										<button  type="submit" class="btn btn-warning">
 										<i class="fa fa-arrow-up" aria-hidden="true"></i> <%=data[0].comment[i].downvote%> &nbsp;&nbsp;반대!
@@ -141,6 +151,7 @@
 											<form style="display:inline-block;" action="/commentlike" method="post">
 													<input type="hidden" name="_csrf" value="<%=_csrf%>">
 													<input type="hidden" name="id" value="<%= data[0].comment[i].id %>">
+													<input type="hidden" name="idea_id" value="<%= data[0].id %>">
 													<input type="hidden" name="current" value="<%= data[0].comment[i].upvote %>">
 										<button  type="submit" class="btn sanda blue">
 										<i class="fa fa-arrow-up" aria-hidden="true"></i> <%=data[0].comment[i].upvote%> &nbsp;&nbsp;옳소!
