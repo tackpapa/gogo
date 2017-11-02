@@ -71,6 +71,18 @@
 	                    <a href="#" class="btn btn-danger btn-raised btn-lg">
 							 			아이디어 등록하기</a>
 					</div>
+					  <% if(data) { %>
+					<div class="col-md-6" style="text-align:right;">
+						<h1 class="h3">실시간 랭킹 TOP 5위</h1>
+						<% for (var i = 0; i < 5; i++) { %>
+	                    <h4><%= data[i].name %> &nbsp;&nbsp;<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;<%= data[i].upvote %></h4>
+
+
+
+
+						<% } %>
+					</div>
+					<% } %>
                 </div>
             </div>
         </div>
@@ -169,7 +181,7 @@
 	            <nav class="pull-left">
 	            </nav>
 	            <div class="copyright pull-right">
-	                &copy; ©2017, Halkka Malkka All Rights Reserved &nbsp;&nbsp;<i class="fa fa-heart heart"></i> by&nbsp;<a href="https://www.facebook.com/kytack">Kiyoung Tack&nbsp;inspired by EJ<i class="fa fa-heart heart"></i></a>
+	                &copy; ©2017, Halkka Malkka All Rights Reserved &nbsp;&nbsp;<i class="fa fa-heart heart"></i> by&nbsp;<a href="https://www.facebook.com/kytack">Kiyoung Tack&nbsp;inspired by EJ</a>
 	            </div>
 	        </div>
 	    </footer>

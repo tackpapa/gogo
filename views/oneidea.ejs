@@ -71,7 +71,7 @@
                       <div class="row" style="text-align:center;">
                         <a href="/oneuser/<%=data[0].realuser%>" class="btn btn-warning btn-raised btn-lg">
   							 			<%= data[0].username %>님&nbsp; 더보기</a>
-										  <a class="btn gongu btn-raised btn-lg"href="https://www.facebook.com/sharer/sharer.php?u=http%3A//13.125.43.174/idea/<%=data[0].id%>"><i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;&nbsp;페북에 공유</a>
+										  <a target="blank" class="btn gongu btn-raised btn-lg"href="https://www.facebook.com/sharer/sharer.php?u=http%3A//13.125.43.174/idea/<%=data[0].id%>"><i class="fa fa-facebook-official" aria-hidden="true"></i>&nbsp;&nbsp;페북에 공유</a>
 										<form style="display:inline-block;" action="/likewishidea" method="post">
 												<input type="hidden" name="_csrf" value="<%=_csrf%>">
 												<input type="hidden" name="id" value="<%= data[0].id %>">

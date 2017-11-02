@@ -26,6 +26,25 @@ exports.index = (req, res) => {
       }
 })
 }
+exports.index = (req, res) => {
+  List.find({
+      target: req.params.id
+  }).sort({
+    upvote: 'asc'
+  }).exec(function(err, data) {
+      if (err) {
+          console.log("listfind error ", err)
+          res.redner(
+            'index', {title: 'Home'}
+          )
+      } else {
+          res.render('index', {
+              title: 'Home',
+              data: data
+          })
+      }
+})
+}
 exports.adminpage = (req, res) => {
   List.find({
       target: req.params.id
