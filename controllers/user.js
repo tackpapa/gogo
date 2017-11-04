@@ -45,9 +45,7 @@ exports.getLogin = (req, res) => {
   if (req.user) {
     return res.redirect('/');
   }
-  res.render('login', {
-    title: 'Login'
-  });
+  res.redirect('/');
 };
 // exports.adminpage = (req, res) => {
 // Question.find({}).populate('response').populate('user').sort({
@@ -137,7 +135,7 @@ exports.postLogin = (req, res, next) => {
     if (err) { return next(err); }
     if (!user) {
       req.flash('errors', info);
-      return res.redirect('/login');
+      return res.redirect('/');
     }
     req.logIn(user, (err) => {
       if (err) { return next(err); }

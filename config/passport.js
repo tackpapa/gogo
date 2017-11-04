@@ -64,6 +64,7 @@ passport.use(new FacebookStrategy({
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
   passReqToCallback: true
 }, (req, accessToken, refreshToken, profile, done) => {
+  console.log(profile)
   if (req.user) {
     User.findOne({ facebook: profile.id }, (err, existingUser) => {
       if (existingUser) {
@@ -71,11 +72,13 @@ passport.use(new FacebookStrategy({
         done(err);
       } else {
         User.findById(req.user.id, (err, user) => {
+          console.log(req.user.id+"SSSSSSS")
           user.facebook = profile.id;
           user.tokens.push({ kind: 'facebook', accessToken });
           user.profile.name = user.profile.name || profile.name.givenName + ' ' + profile.name.familyName;
           user.profile.gender = user.profile.gender || profile._json.gender;
           user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
+          console.log("loggininfbbbbbbb")
           user.save((err) => {
             req.flash('info', { msg: 'Facebook account has been linked.' });
             done(err, user);
@@ -84,15 +87,12 @@ passport.use(new FacebookStrategy({
       }
     });
   } else {
+    console.log("yogigigigi")
     User.findOne({ facebook: profile.id }, (err, existingUser) => {
       if (existingUser) {
-        return done(null, existingUser);
+         done(err);
       }
-      User.findOne({ email: profile._json.email }, (err, existingEmailUser) => {
-        if (existingEmailUser) {
-          req.flash('errors', { msg: 'There is already an account using this email address. Sign in to that account and link it with Facebook manually from Account Settings.' });
-          done(err);
-        } else {
+          console.log("sipal")
           const user = new User();
           user.email = profile._json.email;
           user.facebook = profile.id;
@@ -101,11 +101,13 @@ passport.use(new FacebookStrategy({
           user.profile.gender = profile._json.gender;
           user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
           user.profile.location = (profile._json.location) ? profile._json.location.name : '';
+          console.log(user)
           user.save((err) => {
             done(err, user);
+
           });
-        }
-      });
+        
+
     });
   }
 }));
@@ -268,7 +270,7 @@ exports.isAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect('/login');
+  res.redirect('/');
 };
 
 /**
@@ -280,6 +282,6 @@ exports.isAuthorized = (req, res, next) => {
   if (_.find(req.user.tokens, { kind: provider })) {
     next();
   } else {
-    res.redirect(`/auth/${provider}`);
+    res.redirect(`/`);
   }
 };

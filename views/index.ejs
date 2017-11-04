@@ -21,6 +21,25 @@
 
 
 </head>
+<script language="Javascript">
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '1042441612550201',
+    cookie     : true,
+    xfbml      : true,
+    version    : 'v2.8'
+  });
+  FB.AppEvents.logPageView();
+};
+
+(function(d, s, id){
+   var js, fjs = d.getElementsByTagName(s)[0];
+   if (d.getElementById(id)) {return;}
+   js = d.createElement(s); js.id = id;
+   js.src = "//connect.facebook.net/en_US/sdk.js";
+   fjs.parentNode.insertBefore(js, fjs);
+ }(document, 'script', 'facebook-jssdk'));
+</script>
 
 <body class="landing-page">
     <nav class="navbar navbar-transparent navbar-absolute">
@@ -72,7 +91,7 @@
 							 			아이디어 등록하기</a>
 					</div>
 
-			
+
                 </div>
             </div>
         </div>
