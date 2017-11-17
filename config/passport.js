@@ -63,22 +63,20 @@ passport.use(new FacebookStrategy({
   callbackURL: '/auth/facebook/callback',
   profileFields: ['name', 'email', 'link', 'locale', 'timezone'],
   passReqToCallback: true
-}, (req, accessToken, refreshToken, profile, done) => {
-  console.log(profile)
+}, (req, res, accessToken, refreshToken, profile, done) => {
+
   if (req.user) {
     User.findOne({ facebook: profile.id }, (err, existingUser) => {
       if (existingUser) {
         req.flash('errors', { msg: 'There is already a Facebook account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
-        done(err);
+        done(err, existingUser);
       } else {
         User.findById(req.user.id, (err, user) => {
-          console.log(req.user.id+"SSSSSSS")
           user.facebook = profile.id;
           user.tokens.push({ kind: 'facebook', accessToken });
           user.profile.name = user.profile.name || profile.name.givenName + ' ' + profile.name.familyName;
           user.profile.gender = user.profile.gender || profile._json.gender;
           user.profile.picture = user.profile.picture || `https://graph.facebook.com/${profile.id}/picture?type=large`;
-          console.log("loggininfbbbbbbb")
           user.save((err) => {
             req.flash('info', { msg: 'Facebook account has been linked.' });
             done(err, user);
@@ -87,12 +85,11 @@ passport.use(new FacebookStrategy({
       }
     });
   } else {
-    console.log("yogigigigi")
-    User.findOne({ facebook: profile.id }, (err, existingUser) => {
+    User.findOne({ facebook: profile.id }, (err,existingUser) => {
       if (existingUser) {
-         done(err);
-      }
-          console.log("sipal")
+        
+         done(err, existingUser);
+      }else{
           const user = new User();
           user.email = profile._json.email;
           user.facebook = profile.id;
@@ -101,12 +98,12 @@ passport.use(new FacebookStrategy({
           user.profile.gender = profile._json.gender;
           user.profile.picture = `https://graph.facebook.com/${profile.id}/picture?type=large`;
           user.profile.location = (profile._json.location) ? profile._json.location.name : '';
-          console.log(user)
+          console.log("또유저만듬")
           user.save((err) => {
             done(err, user);
 
           });
-        
+        }
 
     });
   }
@@ -224,6 +221,7 @@ passport.use(new InstagramStrategy({
 }, (req, accessToken, refreshToken, profile, done) => {
   if (req.user) {
     User.findOne({ instagram: profile.id }, (err, existingUser) => {
+      console.log("existingUser" + existingUser);
       if (existingUser) {
         req.flash('errors', { msg: 'There is already an Instagram account that belongs to you. Sign in with that account or delete it, then link it with your current account.' });
         done(err);
